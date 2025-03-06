@@ -14,3 +14,24 @@ variable "instance_type" {
   type = string
   default = "t3.micro"  
 }
+
+variable "instance_type_list" {
+  description = "List of instance type to select"
+  type = list(string)
+  default = [ "t3.micro", "t3.small" ] 
+}
+
+  variable "instance_type_map" {
+    description = "Map of instance type to select"
+    type = map(string)
+    default = {
+      "staging" = "t3.micro"
+      "pre-prod" = "t3.small"
+      "prod" = "t3.large"
+    }    
+  }
+
+  
+
+
+
