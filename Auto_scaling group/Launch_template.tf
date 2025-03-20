@@ -18,7 +18,7 @@ resource "aws_launch_template" "asg_template" {
 
   ebs_optimized = true
 
-  image_id = data.aws_ami.ami
+  image_id = data.aws_ami.ami.id
 
   instance_initiated_shutdown_behavior = "terminate"
 
@@ -37,11 +37,12 @@ resource "aws_launch_template" "asg_template" {
     enabled = true
   }
 
-  network_interfaces {
+ /* network_interfaces {
     associate_public_ip_address = true
-  }
+    
+  }*/
 
-  vpc_security_group_ids = aws_vpc_vpc.id
+  vpc_security_group_ids = [aws_security_group.alb-sg.id]
 
   tag_specifications {
     resource_type = "instance"
@@ -56,6 +57,6 @@ resource "aws_launch_template" "asg_template" {
 
 output "launch_template_id" {
     description = "ID of Launch template"
-    value = aws_launch_template.asg_template.id
+    value = aws_launch_template.asg_template
   
 }

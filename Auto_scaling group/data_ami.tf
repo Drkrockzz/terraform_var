@@ -1,11 +1,10 @@
 data "aws_ami" "ami" {
   most_recent      = true
-  name_regex       = "^myami-[0-9]{3}"
   owners           = ["amazon"]
 
   filter {
     name   = "name"
-    values = ["al2023-*-x86_64"]
+    values = ["al2023-ami-*-x86_64"]
   }
 
   filter {
@@ -20,6 +19,6 @@ data "aws_ami" "ami" {
 
   filter {
     name = "architecture"
-    values = "x86_64"
+    values = ["x86_64"]
   }
 }

@@ -4,7 +4,7 @@ resource "aws_lb" "ALB-ASG" {
   name               = "alb-asg"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = "sg-0444cc5a7770c7f7d"
+  security_groups    = [aws_security_group.alb-sg.id]
   subnets            = [aws_subnet.public_subnet-1a.id, aws_subnet.public_subnet-1c.id ]
 
   enable_deletion_protection = false
@@ -19,11 +19,11 @@ resource "aws_lb_target_group" "albtg-asg" {
   name        = "alb-tg-asg"
   target_type = "instance"
   port        = 80
-  protocol    = "TCP"
+  protocol    = "HTTP"
   vpc_id      = aws_vpc.vpc.id
 
   health_check {
-    protocol = HTTP
+    protocol = "HTTP"
     path = "/app1/index.html"
     port = "traffic-port"
     healthy_threshold = "2"

@@ -1,7 +1,7 @@
 resource "aws_autoscaling_group" "ASG" {
-
+  depends_on = [ aws_vpc.vpc, aws_security_group.alb-sg ]
   name = "ALB-ASG"
-  availability_zones = [var.firstpublic_az, var.secondpublic_az]
+  //availability_zones = [var.firstpublic_az, var.secondpublic_az]
   desired_capacity   = 2
   max_size           = 4
   min_size           = 2
@@ -15,7 +15,7 @@ resource "aws_autoscaling_group" "ASG" {
   }
 
   tag {
-    key                 = "ASG -TEST"
+    key                 = "ASGTEST"
     value               = "Test"
     propagate_at_launch = true
   }
